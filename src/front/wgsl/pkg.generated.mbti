@@ -1,0 +1,424 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonnaga/front/wgsl"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitstack/moonnaga",
+}
+
+// Values
+pub fn address_space_of(String, @moonnaga.Span) -> @moonnaga.AddressSpace raise Failed
+
+pub fn build(TranslationUnit) -> @moonnaga.Module raise Failed
+
+pub fn expr_span(Expr) -> @moonnaga.Span
+
+pub fn[T] fail(String, @moonnaga.Span) -> T raise Failed
+
+pub fn is_void_call(String) -> Bool
+
+pub fn parse(StringView) -> Result[@moonnaga.Module, ParseError]
+
+pub fn parse_translation_unit(StringView) -> TranslationUnit raise Failed
+
+pub fn tokenize(StringView) -> Array[Token] raise Failed
+
+// Errors
+pub suberror Failed {
+  Failed(ParseError)
+}
+
+// Types and methods
+#derive(Eq, @debug.Debug)
+pub(all) enum AssignOp {
+  Assign
+  Add
+  Subtract
+  Multiply
+  Divide
+  Modulo
+  And
+  Or
+  Xor
+  ShiftLeft
+  ShiftRight
+}
+
+#derive(@debug.Debug)
+pub(all) struct Attribute {
+  name : String
+  args : Array[AttributeArg]
+  span : @moonnaga.Span
+}
+
+#derive(@debug.Debug)
+pub(all) enum AttributeArg {
+  Word(String, @moonnaga.Span)
+  Value(Expr)
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum BinaryOp {
+  Add
+  Subtract
+  Multiply
+  Divide
+  Modulo
+  Equal
+  NotEqual
+  Less
+  LessEqual
+  Greater
+  GreaterEqual
+  And
+  Or
+  Xor
+  LogicalAnd
+  LogicalOr
+  ShiftLeft
+  ShiftRight
+}
+
+#derive(@debug.Debug)
+pub(all) enum Binding {
+  Value(@moonnaga.Handle, @moonnaga.Handle)
+  Local(@moonnaga.Handle, @moonnaga.Handle)
+  Global(@moonnaga.Handle, @moonnaga.Handle, @moonnaga.AddressSpace)
+  Constant(@moonnaga.Handle, @moonnaga.Handle)
+  Override(@moonnaga.Handle, @moonnaga.Handle)
+}
+
+pub(all) struct Builder {
+  types : TypeTable
+  globals : Map[String, @moonnaga.Handle]
+  consts : Map[String, ConstEntry]
+  override_names : Map[String, @moonnaga.Handle]
+  signatures : Map[String, FnSignature]
+  entry_names : Map[String, @moonnaga.Handle]
+  mut exprs : @moonnaga.Arena[@moonnaga.Expression]
+  mut kinds : Array[Resolved]
+  mut locals : @moonnaga.Arena[@moonnaga.LocalVariable]
+  mut scopes : Array[Map[String, Binding]]
+  mut return_type : @moonnaga.Handle?
+  mut current_function : @moonnaga.Handle?
+  mut named : Array[(Int32, String)]
+  mut emits : Array[@moonnaga.Statement]
+}
+pub fn Builder::kind_of(Self, @moonnaga.Handle) -> Resolved
+pub fn Builder::new() -> Self
+pub fn Builder::shader(Self) -> @moonnaga.Module
+
+#derive(@debug.Debug)
+pub(all) struct ConstDecl {
+  name : String
+  ty : TypeExpr?
+  init : Expr
+  span : @moonnaga.Span
+}
+
+#derive(@debug.Debug)
+pub(all) struct ConstEntry {
+  handle : @moonnaga.Handle
+  ty : @moonnaga.Handle
+  value : ConstValue?
+}
+
+#derive(@debug.Debug)
+pub(all) enum ConstValue {
+  Int(Int64)
+  Float(Double)
+  Bool(Bool)
+  Vector(Array[ConstValue])
+  Aggregate(Array[ConstValue])
+}
+
+#derive(@debug.Debug)
+pub(all) enum Decl {
+  Enable(String)
+  Requires(String)
+  Diagnostic(String, String?)
+  Const(ConstDecl)
+  Override(OverrideDecl)
+  Var(VarDecl)
+  Struct(StructDecl)
+  Alias(String, TypeExpr, @moonnaga.Span)
+  Fn(FnDecl)
+  ConstAssert(Expr, @moonnaga.Span)
+}
+
+#derive(@debug.Debug)
+pub(all) enum Expr {
+  Number(NumberLit, @moonnaga.Span)
+  Bool(Bool, @moonnaga.Span)
+  Ident(String, @moonnaga.Span)
+  UnaryApply(UnaryOp, Expr, @moonnaga.Span)
+  BinaryApply(BinaryOp, Expr, Expr, @moonnaga.Span)
+  Invoke(String, Array[TemplateArg], Array[Expr], @moonnaga.Span)
+  Bitcast(Array[TemplateArg], Expr, @moonnaga.Span)
+  Index(Expr, Expr, @moonnaga.Span)
+  Member(Expr, String, @moonnaga.Span)
+}
+
+#derive(@debug.Debug)
+pub(all) struct FnDecl {
+  attrs : Array[Attribute]
+  name : String
+  params : Array[ParamDecl]
+  result : ReturnDecl
+  body : Array[Stmt]
+  span : @moonnaga.Span
+}
+
+#derive(@debug.Debug)
+pub(all) struct FnSignature {
+  handle : @moonnaga.Handle
+  params : Array[@moonnaga.Handle]
+  result : @moonnaga.Handle?
+}
+
+#derive(@debug.Debug)
+pub(all) struct ForParts {
+  init : Stmt?
+  condition : Expr?
+  update : Stmt?
+  body : Array[Stmt]
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct NumberLit {
+  text : String
+  is_float : Bool
+  suffix : NumberSuffix
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum NumberSuffix {
+  Plain
+  Signed
+  Unsigned
+  Float
+  Half
+  DoubleSuffix
+  LongSigned
+  LongUnsigned
+  DoubleHalf
+}
+
+#derive(@debug.Debug)
+pub(all) struct OverrideDecl {
+  attrs : Array[Attribute]
+  name : String
+  ty : TypeExpr?
+  init : Expr?
+  span : @moonnaga.Span
+}
+
+#derive(@debug.Debug)
+pub(all) struct ParamDecl {
+  attrs : Array[Attribute]
+  name : String
+  ty : TypeExpr
+  span : @moonnaga.Span
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ParseError {
+  message : String
+  span : @moonnaga.Span
+  line : Int32
+  column : Int32
+}
+
+pub(all) struct Parser {
+  tokens : Array[Token]
+  mut pos : Int32
+  mut pending_greater : Bool
+  mut in_template : Bool
+}
+pub fn Parser::new(Array[Token]) -> Self
+
+#derive(@debug.Debug)
+pub(all) struct PointerExpr {
+  space : String
+  base : TypeExpr
+  access : String?
+  span : @moonnaga.Span
+}
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) enum Punct {
+  Arrow
+  Comma
+  Dot
+  Semicolon
+  Colon
+  ParenLeft
+  ParenRight
+  BracketLeft
+  BracketRight
+  BraceLeft
+  BraceRight
+  At
+  Plus
+  Minus
+  Star
+  Slash
+  Percent
+  And
+  Or
+  Xor
+  Not
+  Tilde
+  ShiftLeft
+  ShiftRight
+  Equal
+  EqualEqual
+  NotEqual
+  Less
+  LessEqual
+  Greater
+  GreaterEqual
+  LogicalAnd
+  LogicalOr
+  PlusEqual
+  MinusEqual
+  StarEqual
+  SlashEqual
+  PercentEqual
+  AndEqual
+  OrEqual
+  XorEqual
+  ShiftLeftEqual
+  ShiftRightEqual
+  Increment
+  Decrement
+}
+
+#derive(@debug.Debug)
+pub(all) enum Resolved {
+  Plain(@moonnaga.Handle)
+  Reference(@moonnaga.Handle, @moonnaga.AddressSpace)
+}
+
+#derive(@debug.Debug)
+pub(all) struct ReturnDecl {
+  attrs : Array[Attribute]
+  ty : TypeExpr?
+  span : @moonnaga.Span
+}
+
+#derive(@debug.Debug)
+pub(all) enum Stmt {
+  SExpr(Expr)
+  SAssign(Expr, AssignOp, Expr, @moonnaga.Span)
+  SIncrement(Expr, Int32, @moonnaga.Span)
+  SLet(String, TypeExpr?, Expr?, Array[Attribute], @moonnaga.Span)
+  SVar(String, TypeExpr?, Expr?, Array[Attribute], String?, @moonnaga.Span)
+  SConst(String, TypeExpr?, Expr, @moonnaga.Span)
+  SIf(Expr, Array[Stmt], Array[Stmt])
+  SLoop(Array[Stmt], Array[Stmt], Expr?)
+  SFor(ForParts)
+  SWhile(Expr, Array[Stmt])
+  SSwitch(Expr, Array[SwitchArm])
+  SBreak(@moonnaga.Span)
+  SContinue(@moonnaga.Span)
+  SReturn(Expr?)
+  SDiscard(@moonnaga.Span)
+  SBlock(Array[Stmt])
+  SConstAssert(Expr, @moonnaga.Span)
+  SEmpty
+}
+
+#derive(@debug.Debug)
+pub(all) struct StructDecl {
+  name : String
+  fields : Array[StructFieldDecl]
+  span : @moonnaga.Span
+}
+
+#derive(@debug.Debug)
+pub(all) struct StructFieldDecl {
+  attrs : Array[Attribute]
+  name : String
+  ty : TypeExpr?
+  span : @moonnaga.Span
+}
+
+#derive(@debug.Debug)
+pub(all) struct SwitchArm {
+  value : Expr?
+  body : Array[Stmt]
+}
+
+#derive(@debug.Debug)
+pub(all) enum TemplateArg {
+  Type(TypeExpr)
+  Expr(Expr)
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Token {
+  kind : TokenKind
+  span : @moonnaga.Span
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum TokenKind {
+  Ident(String)
+  Number(NumberLit)
+  Punct(Punct)
+  Eof
+}
+
+#derive(@debug.Debug)
+pub(all) struct TranslationUnit {
+  decls : Array[Decl]
+}
+
+#derive(@debug.Debug)
+pub(all) enum TypeExpr {
+  Named(String, Array[TemplateArg], @moonnaga.Span)
+  Pointer(PointerExpr)
+}
+
+pub(all) struct TypeTable {
+  shader : @moonnaga.Module
+  keys : Map[String, @moonnaga.Handle]
+  named : Map[String, @moonnaga.Handle]
+}
+pub fn TypeTable::array_type(Self, @moonnaga.Handle, @moonnaga.ArraySize) -> @moonnaga.Handle
+pub fn TypeTable::atomic_type(Self, @moonnaga.Scalar) -> @moonnaga.Handle
+pub fn TypeTable::bind_name(Self, String, @moonnaga.Handle) -> Unit
+pub fn TypeTable::binding_array_type(Self, @moonnaga.Handle, @moonnaga.ArraySize) -> @moonnaga.Handle
+pub fn TypeTable::image_type(Self, @moonnaga.ImageDimension, Bool, @moonnaga.ImageClass) -> @moonnaga.Handle
+pub fn TypeTable::lookup(Self, String) -> @moonnaga.Handle?
+pub fn TypeTable::matrix_type(Self, @moonnaga.VectorSize, @moonnaga.VectorSize, @moonnaga.Scalar) -> @moonnaga.Handle
+pub fn TypeTable::new() -> Self
+pub fn TypeTable::pointer_type(Self, @moonnaga.Handle, @moonnaga.AddressSpace) -> @moonnaga.Handle
+pub fn TypeTable::sampler_type(Self, Bool) -> @moonnaga.Handle
+pub fn TypeTable::scalar_type(Self, @moonnaga.Scalar) -> @moonnaga.Handle
+pub fn TypeTable::struct_type(Self, String, Array[@moonnaga.StructMember]) -> @moonnaga.Handle
+pub fn TypeTable::vector_type(Self, @moonnaga.VectorSize, @moonnaga.Scalar) -> @moonnaga.Handle
+
+#derive(Eq, @debug.Debug)
+pub(all) enum UnaryOp {
+  Negate
+  LogicalNot
+  BitwiseNot
+  AddressOf
+  Deref
+}
+
+#derive(@debug.Debug)
+pub(all) struct VarDecl {
+  attrs : Array[Attribute]
+  name : String
+  space : String?
+  ty : TypeExpr?
+  init : Expr?
+  span : @moonnaga.Span
+}
+
+// Type aliases
+
+// Traits

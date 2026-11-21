@@ -1,0 +1,8 @@
+// The WGSL front end: source text in, the intermediate representation out.
+// The grammar it reads is the one in https://www.w3.org/TR/WGSL/#grammar .
+// Copyright 2026 Leo Cheng
+// SPDX-License-Identifier: Apache-2.0
+
+import {
+  "moonbitstack/moonnaga",
+}
