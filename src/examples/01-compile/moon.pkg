@@ -1,0 +1,11 @@
+// Everything this repository does, in one run: `moon run src/examples/01-compile`.
+// Copyright 2026 Leo Cheng
+// SPDX-License-Identifier: Apache-2.0
+
+import {
+  "moonbitstack/moonnaga/front/wgsl",
+  "moonbitstack/moonnaga/valid",
+  "moonbitstack/moonnaga/back/wgsl" @writer,
+}
+
+pkgtype(kind: "executable")
