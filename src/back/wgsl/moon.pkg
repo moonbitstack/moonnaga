@@ -1,0 +1,13 @@
+// The WGSL writer: intermediate representation in, WGSL text out. The form it
+// prints is the one https://www.w3.org/TR/WGSL/ accepts, written the way the
+// examples in that document are.
+// Copyright 2026 Leo Cheng
+// SPDX-License-Identifier: Apache-2.0
+
+import {
+  "moonbitstack/moonnaga",
+}
+
+import {
+  "moonbitstack/moonnaga/front/wgsl" @front,
+} for "test"

@@ -1,0 +1,48 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonnaga/back/wgsl"
+
+import {
+  "moonbitstack/moonnaga",
+}
+
+// Values
+pub fn float_literal(Double, String) -> String
+
+pub fn join_with(Array[String], String) -> String
+
+pub fn write_module(@moonnaga.Module) -> String
+
+// Errors
+
+// Types and methods
+pub(all) struct Frame {
+  function : @moonnaga.Function
+}
+
+pub(all) struct Namer {
+  taken : Map[String, Int32]
+}
+pub fn Namer::new() -> Self
+pub fn Namer::reserve(Self, String) -> Unit
+pub fn Namer::unique(Self, String) -> String
+
+pub(all) struct Writer {
+  shader : @moonnaga.Module
+  namer : Namer
+  type_names : Map[Int32, String]
+  const_names : Map[Int32, String]
+  global_names : Map[Int32, String]
+  function_names : Map[Int32, String]
+  lines : Array[String]
+  mut indent : Int32
+  mut temps : Int32
+  mut local_names : Map[Int32, String]
+  mut expr_names : Map[Int32, String]
+  mut argument_names : Array[String]
+  mut written : Map[Int32, Bool]
+}
+pub fn Writer::new(@moonnaga.Module) -> Self
+
+// Type aliases
+
+// Traits
