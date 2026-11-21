@@ -1,0 +1,875 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonnaga"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn align_to(Int32, Int32) -> Int32
+
+pub fn boolean() -> Scalar
+
+pub fn float(Int32) -> Scalar
+
+pub fn location_of(StringView, Int32) -> SourceLocation
+
+pub let scalar_bool : Scalar
+
+pub let scalar_f32 : Scalar
+
+pub let scalar_f64 : Scalar
+
+pub let scalar_i32 : Scalar
+
+pub let scalar_i64 : Scalar
+
+pub fn scalar_name(Scalar) -> String
+
+pub let scalar_u32 : Scalar
+
+pub let scalar_u64 : Scalar
+
+pub fn sint(Int32) -> Scalar
+
+pub fn uint(Int32) -> Scalar
+
+pub fn vector_alignment(Int32, Int32) -> Int32
+
+// Errors
+
+// Types and methods
+#derive(Eq, @debug.Debug)
+pub(all) struct AccelerationStructureType {
+  vertex_return : Bool
+}
+
+#derive(@debug.Debug)
+pub(all) struct AccessExpr {
+  base : Handle
+  index : Handle
+}
+
+#derive(@debug.Debug)
+pub(all) struct AccessIndexExpr {
+  base : Handle
+  index : Int32
+}
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) enum AddressSpace {
+  Function
+  Private
+  WorkGroup
+  Uniform
+  Storage(StorageAccess)
+  PushConstant
+  Handle
+}
+
+pub(all) struct Arena[T] {
+  items : Array[T]
+}
+pub fn[T] Arena::add(Self[T], T) -> Handle
+pub fn[T] Arena::compact(Self[T], (Handle, T) -> Bool) -> (Self[T], Array[Int32])
+pub fn[T] Arena::each(Self[T], (Handle, T) -> Unit) -> Unit
+pub fn[T] Arena::find(Self[T], (T) -> Bool) -> Handle?
+pub fn[T] Arena::get(Self[T], Handle) -> T
+pub fn[T] Arena::get_or(Self[T], Handle, T) -> T
+pub fn[T] Arena::is_empty(Self[T]) -> Bool
+pub fn[T] Arena::iter(Self[T]) -> Iter[T]
+pub fn[T] Arena::len(Self[T]) -> Int32
+pub fn[T] Arena::new() -> Self[T]
+pub fn[T] Arena::set(Self[T], Handle, T) -> Unit
+pub impl[T : @debug.Debug] @debug.Debug for Arena[T]
+
+#derive(Eq, @debug.Debug)
+pub(all) enum ArraySize {
+  Fixed(Int32)
+  Override
+  Dynamic
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ArrayType {
+  base : Handle
+  size : ArraySize
+  stride : Int32
+}
+
+#derive(@debug.Debug)
+pub(all) struct AsExpr {
+  expr : Handle
+  kind : ScalarKind
+  convert : Int32?
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct AsType {
+  kind : ScalarKind
+  convert : Int32?
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum AtomicFunction {
+  AtomicAdd
+  AtomicSubtract
+  AtomicAnd
+  AtomicExclusiveOr
+  AtomicInclusiveOr
+  AtomicMin
+  AtomicMax
+  AtomicExchange
+  AtomicCompareExchangeWeak
+}
+
+#derive(@debug.Debug)
+pub(all) struct AtomicResultExpr {
+  ty : Handle
+  comparison : Bool
+}
+
+#derive(@debug.Debug)
+pub(all) struct AtomicStatement {
+  fun : AtomicFunction
+  pointer : Handle
+  value : Handle
+  result : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum BarrierKind {
+  Workgroup
+  Storage
+  Texture
+}
+
+#derive(@debug.Debug)
+pub(all) struct BinaryExpr {
+  op : BinaryOperator
+  left : Handle
+  right : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum BinaryOperator {
+  Add
+  Subtract
+  Multiply
+  Divide
+  Modulo
+  Equal
+  NotEqual
+  Less
+  LessEqual
+  Greater
+  GreaterEqual
+  And
+  ExclusiveOr
+  InclusiveOr
+  LogicalAnd
+  LogicalOr
+  ShiftLeft
+  ShiftRight
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum Binding {
+  BuiltIn(BuiltIn)
+  Location(Int32)
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct BindingArrayType {
+  base : Handle
+  size : ArraySize
+}
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) enum BuiltIn {
+  Position(Bool)
+  ViewIndex
+  BaseInstance
+  BaseVertex
+  ClipDistance
+  CullDistance
+  InstanceIndex
+  PointSize
+  VertexIndex
+  DrawId
+  FragDepth
+  PointCoord
+  FrontFacing
+  PrimitiveIndex
+  SampleIndex
+  SampleMask
+  GlobalInvocationId
+  LocalInvocationId
+  LocalInvocationIndex
+  WorkgroupId
+  WorkgroupSize
+  NumWorkgroups
+  NumSubgroups
+  SubgroupId
+  SubgroupSize
+  SubgroupInvocationId
+}
+
+#derive(@debug.Debug)
+pub(all) struct CallStatement {
+  function : Handle
+  arguments : Array[Handle]
+  result : Handle?
+}
+
+#derive(@debug.Debug)
+pub(all) struct ComposeExpr {
+  ty : Handle
+  components : Array[Handle]
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum ConservativeDepth {
+  GreaterEqual
+  LessEqual
+  Unchanged
+}
+
+#derive(@debug.Debug)
+pub(all) struct Constant {
+  name : String?
+  ty : Handle
+  init : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum DerivativeAxis {
+  X
+  Y
+  Width
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum DerivativeControl {
+  Coarse
+  Fine
+  None
+}
+
+#derive(@debug.Debug)
+pub(all) struct DerivativeExpr {
+  axis : DerivativeAxis
+  ctrl : DerivativeControl
+  expr : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct EarlyDepthTest {
+  conservative : ConservativeDepth?
+}
+
+#derive(@debug.Debug)
+pub(all) struct EntryPoint {
+  name : String
+  stage : ShaderStage
+  early_depth_test : EarlyDepthTest?
+  workgroup_size : Array[Int32]
+  workgroup_size_overrides : Array[Handle?]
+  function : Handle
+}
+
+#derive(@debug.Debug)
+pub(all) enum Expression {
+  Literal(Literal)
+  Constant(Handle)
+  Override(Handle)
+  ZeroValue(Handle)
+  Compose(ComposeExpr)
+  Access(AccessExpr)
+  AccessIndex(AccessIndexExpr)
+  Splat(SplatExpr)
+  Swizzle(SwizzleExpr)
+  FunctionArgument(Int32)
+  GlobalVariable(Handle)
+  LocalVariable(Handle)
+  Load(Handle)
+  ImageSample(ImageSampleExpr)
+  ImageLoad(ImageLoadExpr)
+  ImageQuery(ImageQueryExpr)
+  Unary(UnaryExpr)
+  Binary(BinaryExpr)
+  Select(SelectExpr)
+  Derivative(DerivativeExpr)
+  Relational(RelationalExpr)
+  Math(MathExpr)
+  As(AsExpr)
+  CallResult(Handle)
+  AtomicResult(AtomicResultExpr)
+  WorkGroupUniformLoadResult(Handle)
+  ArrayLength(Handle)
+}
+
+#derive(@debug.Debug)
+pub(all) struct Function {
+  name : String?
+  arguments : Array[FunctionArgument]
+  result : FunctionResult
+  local_variables : Arena[LocalVariable]
+  expressions : Arena[Expression]
+  named_expressions : Map[Int32, String]
+  expr_types : Array[Handle]
+  expr_spaces : Array[AddressSpace?]
+  body : Array[Statement]
+}
+pub fn Function::new() -> Self
+
+#derive(@debug.Debug)
+pub(all) struct FunctionArgument {
+  name : String?
+  ty : Handle
+  binding : Binding?
+  interpolate : InterpolationBinding?
+}
+
+#derive(@debug.Debug)
+pub(all) struct FunctionResult {
+  ty : Handle?
+  binding : Binding?
+  interpolate : InterpolationBinding?
+}
+
+#derive(@debug.Debug)
+pub(all) struct GlobalVariable {
+  name : String?
+  space : AddressSpace
+  binding : ResourceBinding?
+  ty : Handle
+  init : Handle?
+}
+
+#derive(Compare, Eq, Hash, @debug.Debug)
+pub(all) struct Handle {
+  index : Int32
+}
+pub fn Handle::new(Int32) -> Self
+pub fn Handle::to_int(Self) -> Int32
+
+#derive(@debug.Debug)
+pub(all) struct IfStatement {
+  condition : Handle
+  accept : Array[Statement]
+  reject : Array[Statement]
+}
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) enum ImageClass {
+  Sampling
+  Depth
+  Storage(StorageAccess, String)
+}
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) enum ImageDimension {
+  D1
+  D2
+  D3
+  Cube
+}
+
+#derive(@debug.Debug)
+pub(all) struct ImageLoadExpr {
+  image : Handle
+  coordinate : Handle
+  array_index : Handle?
+  sample : Handle?
+  level : Handle?
+}
+
+#derive(@debug.Debug)
+pub(all) struct ImageQueryExpr {
+  image : Handle
+  query : ImageQueryKind
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum ImageQueryKind {
+  Size
+  NumLevels
+  NumLayers
+  NumSamples
+}
+
+#derive(@debug.Debug)
+pub(all) struct ImageSampleExpr {
+  image : Handle
+  sampler : Handle
+  gather : SwizzleComponent?
+  coordinate : Handle
+  array_index : Handle?
+  offset : Handle?
+  level : SampleLevel
+  depth_ref : Handle?
+}
+
+#derive(@debug.Debug)
+pub(all) struct ImageStoreStatement {
+  image : Handle
+  coordinate : Handle
+  array_index : Handle?
+  value : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ImageType {
+  dim : ImageDimension
+  arrayed : Bool
+  class : ImageClass
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum Interpolation {
+  Perspective
+  Linear
+  Flat
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct InterpolationBinding {
+  interpolation : Interpolation
+  sampling : Sampling?
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Layout {
+  size : Int32
+  alignment : Int32
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum Literal {
+  F64(Double)
+  F32(Float)
+  U32(UInt32)
+  I32(Int32)
+  U64(UInt64)
+  I64(Int64)
+  Bool(Bool)
+  AbstractInt(Int64)
+  AbstractFloat(Double)
+}
+
+#derive(@debug.Debug)
+pub(all) struct LocalVariable {
+  name : String?
+  ty : Handle
+  init : Handle?
+}
+
+#derive(@debug.Debug)
+pub(all) struct LoopStatement {
+  body : Array[Statement]
+  continuing : Array[Statement]
+  break_if : Handle?
+}
+
+#derive(@debug.Debug)
+pub(all) struct MathExpr {
+  fun : MathFunction
+  arg : Handle
+  arg1 : Handle?
+  arg2 : Handle?
+  arg3 : Handle?
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum MathFunction {
+  Abs
+  Min
+  Max
+  Clamp
+  Saturate
+  Cos
+  Cosh
+  Sin
+  Sinh
+  Tan
+  Tanh
+  Acos
+  Asin
+  Atan
+  Atan2
+  Asinh
+  Acosh
+  Atanh
+  Radians
+  Degrees
+  Ceil
+  Floor
+  Round
+  Fract
+  Trunc
+  Modf
+  Frexp
+  Ldexp
+  Exp
+  Exp2
+  Log
+  Log2
+  Pow
+  Dot
+  Dot4I8Packed
+  Dot4U8Packed
+  Outer
+  Cross
+  Distance
+  Length
+  Normalize
+  FaceForward
+  Reflect
+  Refract
+  Sign
+  Fma
+  Mix
+  Step
+  SmoothStep
+  Sqrt
+  InverseSqrt
+  Inverse
+  Transpose
+  Determinant
+  QuantizeToF16
+  CountTrailingZeros
+  CountLeadingZeros
+  CountOneBits
+  ReverseBits
+  ExtractBits
+  InsertBits
+  FirstTrailingBit
+  FirstLeadingBit
+  Pack4x8snorm
+  Pack4x8unorm
+  Pack2x16snorm
+  Pack2x16unorm
+  Pack2x16float
+  Pack4xI8
+  Pack4xU8
+  Pack4xI8Clamp
+  Pack4xU8Clamp
+  Unpack4x8snorm
+  Unpack4x8unorm
+  Unpack2x16snorm
+  Unpack2x16unorm
+  Unpack2x16float
+  Unpack4xI8
+  Unpack4xU8
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct MatrixType {
+  columns : VectorSize
+  rows : VectorSize
+  scalar : Scalar
+}
+
+#derive(@debug.Debug)
+pub(all) struct Module {
+  types : Arena[Type]
+  constants : Arena[Constant]
+  overrides : Arena[Override]
+  global_variables : Arena[GlobalVariable]
+  functions : Arena[Function]
+  entry_points : Array[EntryPoint]
+  const_expressions : Arena[Expression]
+  special_types : SpecialTypes
+}
+pub fn Module::components_of(Self, Handle) -> Int32?
+pub fn Module::is_sized(Self, Handle) -> Bool
+pub fn Module::layout(Self, Handle, Int32) -> Layout
+pub fn Module::new() -> Self
+pub fn Module::scalar_of(Self, Handle) -> Scalar?
+pub fn Module::size_of(Self, Handle) -> Int32
+pub fn Module::type_inner(Self, Handle) -> TypeInner
+pub fn Module::type_name(Self, Handle) -> String
+
+#derive(@debug.Debug)
+pub(all) struct Override {
+  name : String
+  ty : Handle
+  init : Handle?
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct PointerType {
+  base : Handle
+  space : AddressSpace
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct RayQueryType {
+  vertex_return : Bool
+}
+
+#derive(@debug.Debug)
+pub(all) struct RelationalExpr {
+  fun : RelationalFunction
+  argument : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum RelationalFunction {
+  All
+  Any
+  IsNan
+  IsInf
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ResourceBinding {
+  group : Int32
+  binding : Int32
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum SampleLevel {
+  Auto
+  Zero
+  Exact(Handle)
+  Bias(Handle)
+  Gradient(Handle, Handle)
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct SamplerType {
+  comparison : Bool
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum Sampling {
+  Center
+  Centroid
+  Sample
+  First
+  Either
+}
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) struct Scalar {
+  kind : ScalarKind
+  width : Int32
+}
+pub fn Scalar::is_abstract(Self) -> Bool
+pub fn Scalar::is_bool(Self) -> Bool
+pub fn Scalar::is_float(Self) -> Bool
+pub fn Scalar::is_integer(Self) -> Bool
+pub fn Scalar::new(ScalarKind, Int32) -> Self
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) enum ScalarKind {
+  Sint
+  Uint
+  Float
+  Bool
+  AbstractInt
+  AbstractFloat
+}
+
+#derive(@debug.Debug)
+pub(all) struct SelectExpr {
+  condition : Handle
+  accept : Handle
+  reject : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum ShaderStage {
+  Vertex
+  Fragment
+  Compute
+  Task
+  Mesh
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct SourceLocation {
+  line : Int32
+  column : Int32
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Span {
+  start : Int32
+  end : Int32
+}
+pub fn Span::new(Int32, Int32) -> Self
+
+#derive(@debug.Debug)
+pub(all) struct SpecialTypes {
+  atomic_compare_exchange_result : Handle?
+}
+pub fn SpecialTypes::empty() -> Self
+
+#derive(@debug.Debug)
+pub(all) struct SplatExpr {
+  size : VectorSize
+  value : Handle
+}
+
+#derive(@debug.Debug)
+pub(all) enum Statement {
+  Emit(Handle)
+  Block(Array[Statement])
+  If(IfStatement)
+  Switch(SwitchStatement)
+  Loop(LoopStatement)
+  Break
+  Continue
+  Return(Handle?)
+  Kill
+  ControlBarrier(BarrierKind)
+  MemoryBarrier(BarrierKind)
+  Store(StoreStatement)
+  ImageStore(ImageStoreStatement)
+  Atomic(AtomicStatement)
+  WorkGroupUniformLoad(WorkGroupUniformLoadStatement)
+  Call(CallStatement)
+}
+
+#derive(Eq, Hash, @debug.Debug)
+pub(all) enum StorageAccess {
+  Read
+  Write
+  ReadWrite
+}
+pub fn StorageAccess::may_load(Self) -> Bool
+pub fn StorageAccess::may_store(Self) -> Bool
+
+#derive(@debug.Debug)
+pub(all) struct StoreStatement {
+  pointer : Handle
+  value : Handle
+}
+
+#derive(@debug.Debug)
+pub(all) struct StructMember {
+  name : String
+  ty : Handle
+  binding : Binding?
+  offset : Int32
+  interpolate : InterpolationBinding?
+}
+
+#derive(@debug.Debug)
+pub(all) struct StructType {
+  members : Array[StructMember]
+  span : Int32
+}
+
+#derive(@debug.Debug)
+pub(all) struct SwitchCase {
+  value : SwitchValue
+  body : Array[Statement]
+  fall_through : Bool
+}
+
+#derive(@debug.Debug)
+pub(all) struct SwitchStatement {
+  selector : Handle
+  cases : Array[SwitchCase]
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum SwitchValue {
+  I32(Int32)
+  U32(UInt32)
+  I64(Int64)
+  U64(UInt64)
+  Default
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum SwizzleComponent {
+  X
+  Y
+  Z
+  W
+}
+pub fn SwizzleComponent::to_int(Self) -> Int32
+
+#derive(@debug.Debug)
+pub(all) struct SwizzleExpr {
+  size : VectorSize
+  vector : Handle
+  pattern : Array[SwizzleComponent]
+}
+
+#derive(@debug.Debug)
+pub(all) struct Type {
+  name : String?
+  inner : TypeInner
+}
+pub fn Type::new(String?, TypeInner) -> Self
+
+#derive(@debug.Debug)
+pub(all) enum TypeInner {
+  Scalar(Scalar)
+  Vector(VectorType)
+  Matrix(MatrixType)
+  Atomic(Scalar)
+  Pointer(PointerType)
+  ValuePointer(ValuePointerType)
+  Array(ArrayType)
+  Struct(StructType)
+  Image(ImageType)
+  Sampler(SamplerType)
+  AccelerationStructure(AccelerationStructureType)
+  RayQuery(RayQueryType)
+  BindingArray(BindingArrayType)
+}
+pub fn TypeInner::is_data(Self) -> Bool
+pub fn TypeInner::is_sized(Self) -> Bool
+pub fn TypeInner::name(Self) -> String
+
+#derive(@debug.Debug)
+pub(all) struct UnaryExpr {
+  op : UnaryOperator
+  expr : Handle
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum UnaryOperator {
+  Negate
+  LogicalNot
+  BitwiseNot
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ValuePointerType {
+  size : VectorSize?
+  scalar : Scalar
+  space : AddressSpace
+}
+
+#derive(Compare, Eq, Hash, @debug.Debug)
+pub(all) enum VectorSize {
+  Bi
+  Tri
+  Quad
+}
+pub fn VectorSize::from_int(Int32) -> Self?
+pub fn VectorSize::to_int(Self) -> Int32
+
+#derive(Eq, @debug.Debug)
+pub(all) struct VectorType {
+  size : VectorSize
+  scalar : Scalar
+}
+
+#derive(@debug.Debug)
+pub(all) struct WorkGroupUniformLoadStatement {
+  pointer : Handle
+  result : Handle
+}
+
+// Type aliases
+
+// Traits

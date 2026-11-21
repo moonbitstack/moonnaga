@@ -1,0 +1,5 @@
+// The intermediate representation: the module type a front end produces and a
+// back end consumes. The shapes here follow the WGSL specification, which is the
+// language this library implements: https://www.w3.org/TR/WGSL/
+// Copyright 2026 Leo Cheng
+// SPDX-License-Identifier: Apache-2.0
