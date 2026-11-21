@@ -1,0 +1,51 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonnaga/valid"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitstack/moonnaga",
+}
+
+// Values
+pub let capabilities_all : Capabilities
+
+pub let capabilities_default : Capabilities
+
+pub fn validate(@moonnaga.Module, capabilities? : Capabilities, flags? : ValidationFlags) -> Result[ModuleInfo, ValidationError]
+
+pub let validation_flags_all : ValidationFlags
+
+// Errors
+
+// Types and methods
+#derive(Eq, @debug.Debug)
+pub(all) struct Capabilities {
+  f16 : Bool
+  f64 : Bool
+  int64 : Bool
+  push_constant : Bool
+  clip_distances : Bool
+  dual_source_blending : Bool
+}
+
+#derive(@debug.Debug)
+pub(all) struct ModuleInfo {
+  entry_points : Array[@moonnaga.EntryPoint]
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ValidationError {
+  message : String
+  subject : String
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ValidationFlags {
+  types : Bool
+  entry_points : Bool
+  resources : Bool
+}
+
+// Type aliases
+
+// Traits

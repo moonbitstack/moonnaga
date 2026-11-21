@@ -1,0 +1,13 @@
+// The validation pass: the rules a module has to satisfy before a back end may
+// assume it is well formed. The rules are the ones in
+// https://www.w3.org/TR/WGSL/#validation and the WebGPU feature set.
+// Copyright 2026 Leo Cheng
+// SPDX-License-Identifier: Apache-2.0
+
+import {
+  "moonbitstack/moonnaga",
+}
+
+import {
+  "moonbitstack/moonnaga/front/wgsl" @front,
+} for "test"
