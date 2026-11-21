@@ -1,0 +1,12 @@
+// The four stages in one place, for a caller that wants the whole pipeline rather
+// than one part of it.
+// Copyright 2026 Leo Cheng
+// SPDX-License-Identifier: Apache-2.0
+
+import {
+  "moonbitstack/moonnaga",
+  "moonbitstack/moonnaga/front/wgsl" @front,
+  "moonbitstack/moonnaga/valid",
+  "moonbitstack/moonnaga/back/wgsl" @text,
+  "moonbitstack/moonnaga/back/spv",
+}

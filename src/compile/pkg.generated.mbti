@@ -1,0 +1,26 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonnaga/compile"
+
+import {
+  "moonbitstack/moonnaga",
+  "moonbitstack/moonnaga/back/spv",
+  "moonbitstack/moonnaga/front/wgsl",
+  "moonbitstack/moonnaga/valid",
+}
+
+// Values
+pub fn parse(StringView) -> Result[@moonnaga.Module, @wgsl.ParseError]
+
+pub fn validate(@moonnaga.Module, capabilities? : @valid.Capabilities) -> Result[@valid.ModuleInfo, @valid.ValidationError]
+
+pub fn write_spirv(@moonnaga.Module, @valid.ModuleInfo) -> Array[Byte] raise @spv.SpvError
+
+pub fn write_wgsl(@moonnaga.Module) -> String
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
