@@ -1,0 +1,33 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonnaga/conformance"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn count_identical(Array[Outcome]) -> Int32
+
+pub fn replay() -> Array[Outcome]
+
+pub fn summary(Array[Outcome]) -> String
+
+// Errors
+
+// Types and methods
+#derive(@debug.Debug)
+pub(all) struct Outcome {
+  name : String
+  status : Status
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) enum Status {
+  Identical
+  Refused(String)
+  Differed
+}
+
+// Type aliases
+
+// Traits
