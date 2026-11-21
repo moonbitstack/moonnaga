@@ -1,0 +1,404 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonnaga/back/spv"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitstack/moonnaga",
+  "moonbitstack/moonnaga/valid",
+}
+
+// Values
+pub let builtin_clip_distance : UInt32
+
+pub let builtin_cull_distance : UInt32
+
+pub let builtin_draw_index : UInt32
+
+pub let builtin_frag_depth : UInt32
+
+pub let builtin_front_facing : UInt32
+
+pub let builtin_global_invocation_id : UInt32
+
+pub let builtin_instance_index : UInt32
+
+pub let builtin_local_invocation_id : UInt32
+
+pub let builtin_local_invocation_index : UInt32
+
+pub let builtin_num_workgroups : UInt32
+
+pub let builtin_point_coord : UInt32
+
+pub let builtin_point_size : UInt32
+
+pub let builtin_position : UInt32
+
+pub let builtin_primitive_id : UInt32
+
+pub let builtin_sample_id : UInt32
+
+pub let builtin_sample_mask : UInt32
+
+pub let builtin_vertex_index : UInt32
+
+pub let builtin_view_index : UInt32
+
+pub fn builtin_word(@moonnaga.BuiltIn) -> UInt32
+
+pub let builtin_workgroup_id : UInt32
+
+pub let builtin_workgroup_size : UInt32
+
+pub let class_function : UInt32
+
+pub let class_input : UInt32
+
+pub let class_output : UInt32
+
+pub let class_private : UInt32
+
+pub let class_push_constant : UInt32
+
+pub let class_storage_buffer : UInt32
+
+pub let class_uniform : UInt32
+
+pub let class_uniform_constant : UInt32
+
+pub let class_workgroup : UInt32
+
+pub let decoration_array_stride : UInt32
+
+pub let decoration_binding : UInt32
+
+pub let decoration_block : UInt32
+
+pub let decoration_builtin : UInt32
+
+pub let decoration_centroid : UInt32
+
+pub let decoration_descriptor_set : UInt32
+
+pub let decoration_flat : UInt32
+
+pub let decoration_location : UInt32
+
+pub let decoration_no_perspective : UInt32
+
+pub let decoration_sample : UInt32
+
+pub let op_access_chain : UInt32
+
+pub let op_all : UInt32
+
+pub let op_any : UInt32
+
+pub let op_bit_count : UInt32
+
+pub let op_bitcast : UInt32
+
+pub let op_bitwise_and : UInt32
+
+pub let op_bitwise_or : UInt32
+
+pub let op_bitwise_xor : UInt32
+
+pub let op_branch : UInt32
+
+pub let op_branch_conditional : UInt32
+
+pub let op_capability : UInt32
+
+pub let op_composite_construct : UInt32
+
+pub let op_composite_extract : UInt32
+
+pub let op_constant : UInt32
+
+pub let op_constant_composite : UInt32
+
+pub let op_constant_false : UInt32
+
+pub let op_constant_null : UInt32
+
+pub let op_constant_true : UInt32
+
+pub let op_control_barrier : UInt32
+
+pub let op_convert_f_to_s : UInt32
+
+pub let op_convert_f_to_u : UInt32
+
+pub let op_convert_s_to_f : UInt32
+
+pub let op_convert_u_to_f : UInt32
+
+pub let op_decorate : UInt32
+
+pub let op_entry_point : UInt32
+
+pub let op_execution_mode : UInt32
+
+pub let op_ext_inst : UInt32
+
+pub let op_ext_inst_import : UInt32
+
+pub let op_f_add : UInt32
+
+pub let op_f_div : UInt32
+
+pub let op_f_mod : UInt32
+
+pub let op_f_mul : UInt32
+
+pub let op_f_negate : UInt32
+
+pub let op_f_ord_equal : UInt32
+
+pub let op_f_ord_greater_than : UInt32
+
+pub let op_f_ord_greater_than_equal : UInt32
+
+pub let op_f_ord_less_than : UInt32
+
+pub let op_f_ord_less_than_equal : UInt32
+
+pub let op_f_ord_not_equal : UInt32
+
+pub let op_f_rem : UInt32
+
+pub let op_f_sub : UInt32
+
+pub let op_function : UInt32
+
+pub let op_function_call : UInt32
+
+pub let op_function_end : UInt32
+
+pub let op_function_parameter : UInt32
+
+pub let op_i_add : UInt32
+
+pub let op_i_equal : UInt32
+
+pub let op_i_mul : UInt32
+
+pub let op_i_not_equal : UInt32
+
+pub let op_i_sub : UInt32
+
+pub let op_image_fetch : UInt32
+
+pub let op_image_query_size_lod : UInt32
+
+pub let op_image_sample_implicit_lod : UInt32
+
+pub let op_in_bounds_access_chain : UInt32
+
+pub let op_kill : UInt32
+
+pub let op_label : UInt32
+
+pub let op_load : UInt32
+
+pub let op_logical_and : UInt32
+
+pub let op_logical_not : UInt32
+
+pub let op_logical_or : UInt32
+
+pub let op_loop_merge : UInt32
+
+pub let op_matrix_times_matrix : UInt32
+
+pub let op_matrix_times_vector : UInt32
+
+pub let op_member_decorate : UInt32
+
+pub let op_member_name : UInt32
+
+pub let op_memory_barrier : UInt32
+
+pub let op_memory_model : UInt32
+
+pub let op_name : UInt32
+
+pub let op_nop : UInt32
+
+pub let op_not : UInt32
+
+pub let op_phi : UInt32
+
+pub let op_return : UInt32
+
+pub let op_return_value : UInt32
+
+pub let op_s_div : UInt32
+
+pub let op_s_greater_than : UInt32
+
+pub let op_s_greater_than_equal : UInt32
+
+pub let op_s_less_than : UInt32
+
+pub let op_s_less_than_equal : UInt32
+
+pub let op_s_negate : UInt32
+
+pub let op_s_rem : UInt32
+
+pub let op_sampled_image : UInt32
+
+pub let op_select : UInt32
+
+pub let op_selection_merge : UInt32
+
+pub let op_shift_left_logical : UInt32
+
+pub let op_shift_right_arithmetic : UInt32
+
+pub let op_shift_right_logical : UInt32
+
+pub let op_store : UInt32
+
+pub let op_switch : UInt32
+
+pub let op_type_array : UInt32
+
+pub let op_type_bool : UInt32
+
+pub let op_type_float : UInt32
+
+pub let op_type_function : UInt32
+
+pub let op_type_image : UInt32
+
+pub let op_type_int : UInt32
+
+pub let op_type_matrix : UInt32
+
+pub let op_type_pointer : UInt32
+
+pub let op_type_runtime_array : UInt32
+
+pub let op_type_sampled_image : UInt32
+
+pub let op_type_sampler : UInt32
+
+pub let op_type_struct : UInt32
+
+pub let op_type_vector : UInt32
+
+pub let op_type_void : UInt32
+
+pub let op_u_div : UInt32
+
+pub let op_u_greater_than : UInt32
+
+pub let op_u_greater_than_equal : UInt32
+
+pub let op_u_less_than : UInt32
+
+pub let op_u_less_than_equal : UInt32
+
+pub let op_u_mod : UInt32
+
+pub let op_variable : UInt32
+
+pub let op_vector_extract_dynamic : UInt32
+
+pub let op_vector_shuffle : UInt32
+
+pub let op_vector_times_matrix : UInt32
+
+pub let op_vector_times_scalar : UInt32
+
+pub let options_default : Options
+
+pub fn string_words(String) -> Array[UInt32]
+
+pub fn[T] unsupported(String) -> T raise SpvError
+
+pub fn write_module(@moonnaga.Module, @valid.ModuleInfo, options? : Options) -> Array[Byte] raise SpvError
+
+// Errors
+pub suberror SpvError {
+  Unsupported(Unsupported)
+}
+
+// Types and methods
+pub(all) struct Builder {
+  words : Array[UInt32]
+  names : Array[UInt32]
+  decorations : Array[UInt32]
+  types : Array[UInt32]
+  constants : Array[UInt32]
+  mut bound : UInt32
+  mut body_start : Int32
+}
+pub fn Builder::new() -> Self
+pub fn Builder::next(Self) -> UInt32
+pub fn Builder::set_version(Self, UInt32) -> Unit
+pub fn Builder::start_body(Self) -> Unit
+pub fn Builder::to_bytes(Self) -> Array[Byte]
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Options {
+  version : UInt32
+}
+
+pub(all) struct Targets {
+  break_to : UInt32
+  continue_to : UInt32
+}
+
+pub(all) struct TypeCache {
+  ids : Map[Int32, UInt32]
+  void_id : UInt32
+  bool_id : UInt32
+  mat_null : Map[Int32, UInt32]
+  sampled_image : Map[Int32, UInt32]
+}
+pub fn TypeCache::new(UInt32, UInt32) -> Self
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Unsupported {
+  feature : String
+}
+
+pub(all) struct Writer {
+  shader : @moonnaga.Module
+  builder : Builder
+  options : Options
+  type_ids : Map[Int32, UInt32]
+  const_ids : Map[Int32, UInt32]
+  global_ids : Map[Int32, UInt32]
+  function_ids : Map[Int32, UInt32]
+  mut expr_ids : Map[Int32, UInt32]
+  mut blocks : Array[UInt32]
+  mut void_id : UInt32
+  mut bool_id : UInt32
+  mut glsl_id : UInt32
+  mut uint_id : UInt32
+  scalar_ids : Map[String, UInt32]
+  wrapped : Map[Int32, UInt32]
+  mut terminated : Bool
+  mut break_target : UInt32
+  mut continue_target : UInt32
+  mut switch_merge : UInt32
+  mut argument_ids : Array[UInt32]
+  mut local_ids : Map[Int32, UInt32]
+  mut targets : Array[Targets]
+  mut current : @moonnaga.Function?
+  mut interface_loads : Array[UInt32]
+  mut interface_result : UInt32
+  interface_inputs : Map[Int32, Array[UInt32]]
+  interface_outputs : Map[Int32, UInt32]
+}
+pub fn Writer::new(@moonnaga.Module, Options) -> Self
+
+// Type aliases
+pub type Word = UInt32
+
+// Traits

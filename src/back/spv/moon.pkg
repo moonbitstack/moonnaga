@@ -1,0 +1,14 @@
+// The SPIR-V writer: intermediate representation in, the words a Vulkan driver
+// loads out. The binary format is https://registry.khronos.org/SPIR-V/specs/unified1/SPIRV.html
+// Copyright 2026 Leo Cheng
+// SPDX-License-Identifier: Apache-2.0
+
+import {
+  "moonbitstack/moonnaga",
+  "moonbitstack/moonnaga/valid",
+}
+
+import {
+  "moonbitstack/moonnaga/front/wgsl" @front,
+  "moonbitstack/moonnaga/valid" @validate,
+} for "test"
